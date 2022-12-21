@@ -1,0 +1,137 @@
+---
+title: 'Rehearsal of Confessions'
+output: github_document
+date: "`r Sys.Date()`"
+---
+
+```{r, include = FALSE}
+source("./R/study_1_lmm.R")
+source("./R/study_2_lmm.R")
+```
+
+# Study 1: True and False Confessions
+
+## Word Count
+
+### Model Comparison
+
+```{r}
+lrt_1_2
+```
+
+```{r}
+lrt_2_3
+```
+
+### Regression Tables
+
+```{r}
+summary(model_1)
+```
+
+```{r}
+summary(model_2)
+```
+
+```{r}
+summary(model_3)
+```
+
+# Study 2: Observers
+
+## Model Comparisons
+
+### Guilt
+
+```{r}
+lrt_guilt
+```
+
+### Confidence
+
+```{r}
+lrt_confidence
+```
+
+### Knowledgeable
+
+```{r}
+lrt_know
+```
+
+### Remorse
+
+```{r}
+lrt_remorse_1_2
+```
+
+```{r}
+lrt_remorse_1_3
+```
+
+### Detailed
+
+```{r}
+lrt_detail
+```
+
+### Rehearsal
+
+```{r}
+lrt_rehearse_1_2
+```
+
+```{r}
+lrt_rehearse_1_3
+```
+
+## Regression Tables
+
+### Guilt
+
+```{r}
+summary(model_guilt_1)
+summary(model_guilt_2)
+summary(model_guilt_3)
+```
+
+### Confidence
+
+```{r}
+summary(model_confidence_1)
+summary(model_confidence_2)
+summary(model_confidence_3)
+```
+
+### Knowledgeable
+
+```{r}
+summary(model_know_1)
+summary(model_know_2)
+summary(model_know_3)
+```
+
+### Remorse
+
+```{r}
+summary(model_remorse_1)
+summary(model_remorse_2)
+summary(model_remorse_3)
+```
+
+### Detailed
+
+```{r}
+summary(model_detail_1)
+summary(model_detail_2)
+summary(model_detail_3)
+```
+
+### Rehearsal
+
+```{r}
+summary(model_rehearse_1)
+summary(model_rehearse_2)
+summary(model_rehearse_3)
+```
+

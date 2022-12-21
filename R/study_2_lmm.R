@@ -127,3 +127,120 @@ lrt_rehearse_1_2 <- anova(model_rehearse_1, model_rehearse_2)
 model_rehearse_3 <- lmer(Rehearsed ~ culpability * confession_number + (1|video), data = study_2, REML = FALSE)
 
 lrt_rehearse_1_3 <- anova(model_rehearse_1, model_rehearse_3)
+
+# Visualizations ---------------------------------------------------------------
+
+## Guilt proprortions
+
+guilt_table <- study_2 %>% 
+  group_by(culpability, confession_number) %>% 
+  summarise(
+    proportion = sum(guilt)/n()
+  )
+
+guilt_percentage <- 
+ggplot(guilt_table,
+       aes(
+         x = confession_number,
+         y = proportion,
+         color = culpability
+       )) +
+  geom_line(
+    linewidth = 1
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 1, .10),
+    limits = c(0, 1)
+  ) +
+  scale_x_continuous(
+    labels = paste("Confession", 1:4, sep = " ")
+  ) +
+  scale_color_manual(
+    values = c("#E71D36", "#448FA3")
+  ) +
+  labs(
+    x = "Level of Rehearsal",
+    y = "Proportion of guilt judgments",
+    color = ""
+  ) +
+  theme_classic()
+
+## Confidence
+
+conf_table <- study_2 %>% 
+  group_by(guilt, confession_number) %>% 
+  summarise(
+    mean = mean(Confidence)
+  )
+
+confidence_figure <- 
+ggplot(conf_table,
+       aes(
+         y = mean,
+         x = confession_number,
+         color = as.factor(guilt)
+       )) +
+  geom_line(
+    linewidth = 1
+  ) +
+  scale_y_continuous(
+    breaks = 1:10,
+    limits = c(1, 10)
+  ) +
+  scale_x_continuous(
+    labels = paste("Confession", 1:4, sep = " ")
+  ) +
+  scale_color_manual(
+    values = c("#E71D36", "#448FA3"),
+    labels = c("Judged innocent", "Judged guilty")
+  ) +
+  labs(
+    x = "Level of Rehearsal",
+    y = "Mean Confidence in Judgment",
+    color = ""
+  ) +
+  theme_classic()
+
+## Perceptual variables
+
+perceptual <- study_2 %>% 
+  pivot_longer(
+    cols = c("Knowledgeable", "Remorse", "Detailed", "Rehearsed"),
+    names_to = "item",
+    values_to = "rating"
+  )
+
+perceptual_table <- perceptual %>% 
+  group_by(culpability, confession_number, item) %>% 
+  summarise(
+    mean = mean(rating, na.rm = TRUE)
+  )
+
+perceptual_figure <- 
+  ggplot(perceptual_table,
+         aes(
+           y = mean,
+           x = confession_number,
+           color = item
+         )) +
+  facet_wrap(~ culpability, nrow = 2) +
+  geom_line(
+    linewidth = 1
+  ) +
+  scale_y_continuous(
+    breaks = 1:10,
+    limits = c(1, 10)
+  ) +
+  scale_x_continuous(
+    labels = paste("Confession", 1:4, sep = " ")
+  ) +
+  # scale_color_manual(
+  #   values = c("#E71D36", "#448FA3"),
+  #   labels = c("Judged innocent", "Judged guilty")
+  # ) +
+  labs(
+    x = "Level of Rehearsal",
+    y = "Mean Confidence in Judgment",
+    color = ""
+  ) +
+  theme_classic()

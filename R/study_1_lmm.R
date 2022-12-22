@@ -94,6 +94,37 @@ word_figure <-
   ) +
   labs(
     x = "Level of Rehearsal",
+    y = "Mean word count",
+    color = ""
+  ) +
+  theme_classic()
+
+word_trajectories <-
+  ggplot(study_1_long,
+         aes(
+           x = confession_number,
+           y = length,
+           color = as.factor(Condition),
+           group = ID
+         )) +
+  geom_line(
+    linewidth = 1,
+    alpha = .33
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 350, 50),
+    limits = c(0, 350)
+  ) +
+  scale_x_continuous(
+    labels = paste("Confession", 1:4, sep = " "),
+    breaks = 0:3
+  ) +
+  scale_color_manual(
+    values = c("#E71D36", "#448FA3"),
+    labels = c("Innocent", "Guilty")
+  ) +
+  labs(
+    x = "Level of Rehearsal",
     y = "Word count",
     color = ""
   ) +
@@ -102,3 +133,4 @@ word_figure <-
 ## Export figures
 
 save_plot("./figures/rehearsal_word-figure.png", word_figure, base_height = 5)
+save_plot("./figures/rehearsal_word-trajectory-figure.png", word_trajectories, base_height = 5)

@@ -160,6 +160,12 @@ knitr::include_graphics("./figures/rehearsal_word-figure.png")
 
 <img src="./figures/rehearsal_word-figure.png" width="2427" />
 
+``` r
+knitr::include_graphics("./figures/rehearsal_word-trajectory-figure.png")
+```
+
+<img src="./figures/rehearsal_word-trajectory-figure.png" width="2427" />
+
 # Study 2: Observers
 
 ## Model Comparisons

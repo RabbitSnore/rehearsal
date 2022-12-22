@@ -41,6 +41,9 @@ summary(model_3)
 knitr::include_graphics("./figures/rehearsal_word-figure.png")
 ```
 
+```{r}
+knitr::include_graphics("./figures/rehearsal_word-trajectory-figure.png")
+```
 
 # Study 2: Observers
 

@@ -95,12 +95,20 @@ summary(model_guilt_2)
 summary(model_guilt_3)
 ```
 
+```{r}
+knitr::include_graphics("./figures/rehearsal_guilt-figure.png")
+```
+
 ### Confidence
 
 ```{r}
 summary(model_confidence_1)
 summary(model_confidence_2)
 summary(model_confidence_3)
+```
+
+```{r}
+knitr::include_graphics("./figures/rehearsal_confidence-figure.png")
 ```
 
 ### Knowledgeable
@@ -135,3 +143,6 @@ summary(model_rehearse_2)
 summary(model_rehearse_3)
 ```
 
+```{r}
+knitr::include_graphics("./figures/rehearsal_perceptual-figure.png")
+```

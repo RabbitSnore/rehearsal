@@ -1,6 +1,6 @@
 Rehearsal of Confessions
 ================
-2022-12-21
+2022-12-22
 
 # Study 1: True and False Confessions
 
@@ -404,6 +404,12 @@ summary(model_guilt_3)
     ## clpbltyGl:_  0.323 -0.412 -0.751  0.726       
     ## clpbltyG:__ -0.238  0.300  0.718 -0.743 -0.963
 
+``` r
+knitr::include_graphics("./figures/rehearsal_guilt-figure.png")
+```
+
+<img src="./figures/rehearsal_guilt-figure.png" width="2427" />
+
 ### Confidence
 
 ``` r
@@ -528,6 +534,12 @@ summary(model_confidence_3)
     ## clpbltyGlty -0.573 -0.016 -0.011  0.006              
     ## glt:cnfssn_  0.262 -0.611 -0.846  0.824  0.019       
     ## glt:cnfss__ -0.194  0.457  0.829 -0.858 -0.011 -0.967
+
+``` r
+knitr::include_graphics("./figures/rehearsal_confidence-figure.png")
+```
+
+<img src="./figures/rehearsal_confidence-figure.png" width="2427" />
 
 ### Knowledgeable
 
@@ -1012,3 +1024,9 @@ summary(model_rehearse_3)
     ## clpbltyGlty -0.712              
     ## cnfssn_nmbr -0.439  0.313       
     ## clpbltyGl:_  0.318 -0.421 -0.724
+
+``` r
+knitr::include_graphics("./figures/rehearsal_perceptual-figure.png")
+```
+
+<img src="./figures/rehearsal_perceptual-figure.png" width="3883" />

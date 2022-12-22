@@ -1,12 +1,13 @@
 ################################################################################
 
-# Study 2 - Reanalysis
+# Study 2 - Analysis
 
 ################################################################################
 
 library(tidyverse)
 library(lme4)
 library(lmerTest)
+library(cowplot)
 
 study_2 <- read.csv("./data/Study 2 all data with video numbers.csv") %>% 
   slice(-1, -2) %>% 
@@ -135,10 +136,13 @@ lrt_rehearse_1_3 <- anova(model_rehearse_1, model_rehearse_3)
 guilt_table <- study_2 %>% 
   group_by(culpability, confession_number) %>% 
   summarise(
-    proportion = sum(guilt)/n()
+    proportion = sum(guilt)/n(),
+    se = sqrt( (proportion * (1 - proportion)) / n() ),
+    ci_lb = proportion - se*qnorm(.975),
+    ci_ub = proportion + se*qnorm(.975)
   )
 
-guilt_percentage <- 
+guilt_figure <- 
 ggplot(guilt_table,
        aes(
          x = confession_number,
@@ -148,12 +152,21 @@ ggplot(guilt_table,
   geom_line(
     linewidth = 1
   ) +
+  geom_errorbar(
+    aes(
+      ymax = ci_ub,
+      ymin = ci_lb
+    ),
+    alpha = .50,
+    width = .25
+  ) +
   scale_y_continuous(
     breaks = seq(0, 1, .10),
     limits = c(0, 1)
   ) +
   scale_x_continuous(
-    labels = paste("Confession", 1:4, sep = " ")
+    labels = paste("Confession", 1:4, sep = " "),
+    breaks = 0:3
   ) +
   scale_color_manual(
     values = c("#E71D36", "#448FA3")
@@ -170,7 +183,10 @@ ggplot(guilt_table,
 conf_table <- study_2 %>% 
   group_by(guilt, confession_number) %>% 
   summarise(
-    mean = mean(Confidence)
+    mean = mean(Confidence),
+    se    = sd(Confidence, na.rm = TRUE)/sqrt(n()),
+    ci_lb = mean - se*qt(.975, n() - 2),
+    ci_ub = mean + se*qt(.975, n() - 2)
   )
 
 confidence_figure <- 
@@ -183,12 +199,21 @@ ggplot(conf_table,
   geom_line(
     linewidth = 1
   ) +
+  geom_errorbar(
+    aes(
+      ymax = ci_ub,
+      ymin = ci_lb
+    ),
+    alpha = .50,
+    width = .25
+  ) +
   scale_y_continuous(
     breaks = 1:10,
     limits = c(1, 10)
   ) +
   scale_x_continuous(
-    labels = paste("Confession", 1:4, sep = " ")
+    labels = paste("Confession", 1:4, sep = " "),
+    breaks = 0:3
   ) +
   scale_color_manual(
     values = c("#E71D36", "#448FA3"),
@@ -213,7 +238,10 @@ perceptual <- study_2 %>%
 perceptual_table <- perceptual %>% 
   group_by(culpability, confession_number, item) %>% 
   summarise(
-    mean = mean(rating, na.rm = TRUE)
+    mean  = mean(rating, na.rm = TRUE),
+    se    = sd(rating, na.rm = TRUE)/sqrt(n()),
+    ci_lb = mean - se*qt(.975, n() - 2),
+    ci_ub = mean + se*qt(.975, n() - 2)
   )
 
 perceptual_figure <- 
@@ -222,25 +250,76 @@ perceptual_figure <-
            y = mean,
            x = confession_number,
            color = item
-         )) +
+           )) +
   facet_wrap(~ culpability, nrow = 2) +
   geom_line(
     linewidth = 1
+  ) +
+  geom_errorbar(
+    aes(
+      ymax = ci_ub,
+      ymin = ci_lb
+    ),
+    alpha = .50,
+    width = .25
   ) +
   scale_y_continuous(
     breaks = 1:10,
     limits = c(1, 10)
   ) +
   scale_x_continuous(
-    labels = paste("Confession", 1:4, sep = " ")
+    labels = paste("Confession", 1:4, sep = " "),
+    breaks = 0:3
   ) +
-  # scale_color_manual(
-  #   values = c("#E71D36", "#448FA3"),
-  #   labels = c("Judged innocent", "Judged guilty")
-  # ) +
+  scale_color_manual(
+    values = c("#8EA604", "#EC9F05", "#CA3C25", "#2D1E2F")
+  ) +
   labs(
     x = "Level of Rehearsal",
-    y = "Mean Confidence in Judgment",
+    y = "Mean Rating",
     color = ""
   ) +
   theme_classic()
+
+perceptual_figure_alt <-
+ggplot(perceptual_table,
+       aes(
+         y = mean,
+         x = confession_number,
+         color = culpability
+       )) +
+  facet_wrap(~ item, nrow = 2) +
+  geom_line(
+    linewidth = 1
+  ) +
+  geom_errorbar(
+    aes(
+      ymax = ci_ub,
+      ymin = ci_lb
+    ),
+    alpha = .50,
+    width = .25
+  ) +
+  scale_y_continuous(
+    breaks = 1:10,
+    limits = c(1, 10)
+  ) +
+  scale_x_continuous(
+    labels = paste("Confession", 1:4, sep = " "),
+    breaks = 0:3
+  ) +
+  scale_color_manual(
+    values = c("#E71D36", "#448FA3")
+  ) +
+  labs(
+    x = "Level of Rehearsal",
+    y = "Mean Rating",
+    color = ""
+  ) +
+  theme_classic()
+
+## Export figures
+
+save_plot("./figures/rehearsal_guilt-figure.png", guilt_figure, base_height = 5)
+save_plot("./figures/rehearsal_confidence-figure.png", confidence_figure, base_height = 5)
+save_plot("./figures/rehearsal_perceptual-figure.png", perceptual_figure_alt, base_height = 8)

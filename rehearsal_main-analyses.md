@@ -154,6 +154,12 @@ summary(model_3)
     ## Cndtn:cnfs_  0.240 -0.354 -0.678  0.650       
     ## Cndtn:cnf__ -0.179  0.264  0.650 -0.678 -0.958
 
+``` r
+knitr::include_graphics("./figures/rehearsal_word-figure.png")
+```
+
+<img src="./figures/rehearsal_word-figure.png" width="2427" />
+
 # Study 2: Observers
 
 ## Model Comparisons

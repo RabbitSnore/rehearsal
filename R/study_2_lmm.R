@@ -322,4 +322,4 @@ ggplot(perceptual_table,
 
 save_plot("./figures/rehearsal_guilt-figure.png", guilt_figure, base_height = 5)
 save_plot("./figures/rehearsal_confidence-figure.png", confidence_figure, base_height = 5)
-save_plot("./figures/rehearsal_perceptual-figure.png", perceptual_figure_alt, base_height = 8)
+save_plot("./figures/rehearsal_perceptual-figure.png", perceptual_figure_alt, base_height = 6)

@@ -9,7 +9,7 @@ library(lme4)
 library(lmerTest)
 library(cowplot)
 
-study_1 <- read.csv("./data/Study 1 data CSV.csv")
+study_1 <- read.csv("./data/rehearsal_study-1.csv")
 
 # Wrangling
 

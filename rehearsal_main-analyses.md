@@ -1,6 +1,6 @@
 Rehearsal of Confessions
 ================
-2022-12-22
+2022-12-23
 
 # Study 1: True and False Confessions
 
@@ -158,13 +158,13 @@ summary(model_3)
 knitr::include_graphics("./figures/rehearsal_word-figure.png")
 ```
 
-<img src="./figures/rehearsal_word-figure.png" width="2427" />
+![](./figures/rehearsal_word-figure.png)<!-- -->
 
 ``` r
 knitr::include_graphics("./figures/rehearsal_word-trajectory-figure.png")
 ```
 
-<img src="./figures/rehearsal_word-trajectory-figure.png" width="2427" />
+![](./figures/rehearsal_word-trajectory-figure.png)<!-- -->
 
 # Study 2: Observers
 
@@ -420,7 +420,7 @@ summary(model_guilt_3)
 knitr::include_graphics("./figures/rehearsal_guilt-figure.png")
 ```
 
-<img src="./figures/rehearsal_guilt-figure.png" width="2427" />
+![](./figures/rehearsal_guilt-figure.png)<!-- -->
 
 ### Confidence
 
@@ -551,7 +551,7 @@ summary(model_confidence_3)
 knitr::include_graphics("./figures/rehearsal_confidence-figure.png")
 ```
 
-<img src="./figures/rehearsal_confidence-figure.png" width="2427" />
+![](./figures/rehearsal_confidence-figure.png)<!-- -->
 
 ### Knowledgeable
 
@@ -1041,4 +1041,4 @@ summary(model_rehearse_3)
 knitr::include_graphics("./figures/rehearsal_perceptual-figure.png")
 ```
 
-<img src="./figures/rehearsal_perceptual-figure.png" width="3883" />
+![](./figures/rehearsal_perceptual-figure.png)<!-- -->

@@ -9,11 +9,11 @@ library(lme4)
 library(lmerTest)
 library(cowplot)
 
-study_2 <- read.csv("./data/Study 2 all data with video numbers.csv") %>% 
+study_2 <- read.csv("./data/rehearsal_study-2.csv") %>% 
   slice(-1, -2) %>% 
   type_convert()
 
-video_ids <- read.csv("./data/Study 2 video and participant number.csv")
+video_ids <- read.csv("./data/rehearsal_join-data.csv")
 
 # Wrangling --------------------------------------------------------------------
 
@@ -323,3 +323,21 @@ ggplot(perceptual_table,
 save_plot("./figures/rehearsal_guilt-figure.png", guilt_figure, base_height = 5)
 save_plot("./figures/rehearsal_confidence-figure.png", confidence_figure, base_height = 5)
 save_plot("./figures/rehearsal_perceptual-figure.png", perceptual_figure_alt, base_height = 6)
+
+# Table of descriptives --------------------------------------------------------
+
+rating_table <- perceptual %>% 
+  group_by(item, culpability, confession_number) %>% 
+  summarise(
+    Mean  = mean(rating, na.rm = TRUE),
+    SD    = sd(rating, na.rm = TRUE)
+  )
+
+rating_table$confession_number <- rating_table$confession_number + 1
+
+rating_table$Mean <- round(rating_table$Mean, 2)
+rating_table$SD <- round(rating_table$SD, 2)
+
+colnames(rating_table) <- c("Rating", "Actual Guilt", "Rehearsal Level", "Mean", "SD")
+
+write.csv(rating_table, "./data/rehearsal_rating-table.csv", row.names = FALSE)

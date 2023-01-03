@@ -154,3 +154,65 @@ summary(model_rehearse_3)
 ```{r}
 knitr::include_graphics("./figures/rehearsal_perceptual-figure.png")
 ```
+
+## Statement length as a covariate
+
+### Guilt
+
+```{r}
+lrt_guilt_wc
+```
+
+```{r}
+summary(model_guilt_wc)
+```
+
+### Confidence
+
+```{r}
+lrt_confidence_wc
+```
+
+```{r}
+summary(model_confidence_wc)
+```
+
+### Knowledgeable
+
+```{r}
+lrt_know_wc
+```
+
+```{r}
+summary(model_know_wc)
+```
+
+### Remorse
+
+```{r}
+lrt_remorse_wc
+```
+
+```{r}
+summary(model_remorse_wc)
+```
+
+### Detailed
+
+```{r}
+lrt_detail_wc
+```
+
+```{r}
+summary(model_detail_wc)
+```
+
+### Rehearsal
+
+```{r}
+lrt_rehearse_wc
+```
+
+```{r}
+summary(model_rehearse_wc)
+```

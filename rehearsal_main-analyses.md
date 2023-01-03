@@ -1,6 +1,6 @@
 Rehearsal of Confessions
 ================
-2022-12-23
+2023-01-03
 
 # Study 1: True and False Confessions
 
@@ -1042,3 +1042,335 @@ knitr::include_graphics("./figures/rehearsal_perceptual-figure.png")
 ```
 
 ![](./figures/rehearsal_perceptual-figure.png)<!-- -->
+
+## Statement length as a covariate
+
+### Guilt
+
+``` r
+lrt_guilt_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_guilt_2: guilt ~ culpability + confession_number + confession_number_sq + (1 | video)
+    ## model_guilt_wc: guilt ~ culpability + confession_number + confession_number_sq + length + (1 | video)
+    ##                npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_guilt_2     5 713.35 735.63 -351.68   703.35                     
+    ## model_guilt_wc    6 715.32 742.05 -351.66   703.32 0.0352  1     0.8511
+
+``` r
+summary(model_guilt_wc)
+```
+
+    ## Generalized linear mixed model fit by maximum likelihood (Laplace
+    ##   Approximation) [glmerMod]
+    ##  Family: binomial  ( logit )
+    ## Formula: guilt ~ culpability + confession_number + confession_number_sq +  
+    ##     length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##    715.3    742.1   -351.7    703.3      630 
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -2.8323 -0.8314  0.3685  0.5901  1.3900 
+    ## 
+    ## Random effects:
+    ##  Groups Name        Variance Std.Dev.
+    ##  video  (Intercept) 1.037    1.018   
+    ## Number of obs: 636, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                        Estimate Std. Error z value Pr(>|z|)    
+    ## (Intercept)           0.5002489  0.4117736   1.215    0.224    
+    ## culpabilityGuilty    -0.2853443  0.4764364  -0.599    0.549    
+    ## confession_number     1.3871497  0.3156775   4.394 1.11e-05 ***
+    ## confession_number_sq -0.4177715  0.1033878  -4.041 5.33e-05 ***
+    ## length               -0.0004763  0.0025163  -0.189    0.850    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) clpblG cnfss_ cnfs__
+    ## clpbltyGlty -0.386                     
+    ## cnfssn_nmbr -0.274  0.012              
+    ## cnfssn_nmb_  0.200 -0.007 -0.962       
+    ## length      -0.500 -0.305 -0.006  0.002
+
+### Confidence
+
+``` r
+lrt_confidence_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_confidence_2: Confidence ~ guilt + culpability + confession_number + confession_number_sq + (1 | video)
+    ## model_confidence_wc: Confidence ~ guilt + culpability + confession_number + confession_number_sq + length + (1 | video)
+    ##                     npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_confidence_2     7 2565.2 2596.3 -1275.6   2551.2                     
+    ## model_confidence_wc    8 2567.1 2602.8 -1275.6   2551.1 0.0143  1     0.9047
+
+``` r
+summary(model_confidence_wc)
+```
+
+    ## Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's
+    ##   method [lmerModLmerTest]
+    ## Formula: 
+    ## Confidence ~ guilt + culpability + confession_number + confession_number_sq +  
+    ##     length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##   2567.1   2602.8  -1275.6   2551.1      628 
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.0385 -0.3578  0.0697  0.6214  1.9755 
+    ## 
+    ## Random effects:
+    ##  Groups   Name        Variance Std.Dev.
+    ##  video    (Intercept) 0.8585   0.9266  
+    ##  Residual             2.9747   1.7247  
+    ## Number of obs: 636, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                        Estimate Std. Error         df t value Pr(>|t|)    
+    ## (Intercept)           6.331e+00  3.532e-01  5.478e+01  17.926  < 2e-16 ***
+    ## guilt                 1.339e+00  1.651e-01  6.341e+02   8.110 2.62e-15 ***
+    ## culpabilityGuilty    -2.870e-01  4.070e-01  2.670e+01  -0.705   0.4868    
+    ## confession_number    -5.954e-01  2.346e-01  6.320e+02  -2.538   0.0114 *  
+    ## confession_number_sq  2.212e-01  7.524e-02  6.309e+02   2.940   0.0034 ** 
+    ## length               -2.237e-04  1.867e-03  4.051e+02  -0.120   0.9047    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) guilt  clpblG cnfss_ cnfs__
+    ## guilt       -0.274                            
+    ## clpbltyGlty -0.421  0.018                     
+    ## cnfssn_nmbr -0.231 -0.174  0.006              
+    ## cnfssn_nmb_  0.165  0.160 -0.003 -0.960       
+    ## length      -0.438  0.008 -0.272  0.001 -0.002
+
+### Knowledgeable
+
+``` r
+lrt_know_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_know_2: Knowledgeable ~ culpability + confession_number + confession_number_sq + (1 | video)
+    ## model_know_wc: Knowledgeable ~ culpability + confession_number + confession_number_sq + length + (1 | video)
+    ##               npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_know_2     6 2611.9 2638.6 -1299.9   2599.9                     
+    ## model_know_wc    7 2613.8 2644.9 -1299.9   2599.8 0.0775  1     0.7807
+
+``` r
+summary(model_know_wc)
+```
+
+    ## Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's
+    ##   method [lmerModLmerTest]
+    ## Formula: 
+    ## Knowledgeable ~ culpability + confession_number + confession_number_sq +  
+    ##     length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##   2613.8   2644.9  -1299.9   2599.8      625 
+    ## 
+    ## Scaled residuals: 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -2.87530 -0.62463  0.05445  0.69905  2.07410 
+    ## 
+    ## Random effects:
+    ##  Groups   Name        Variance Std.Dev.
+    ##  video    (Intercept) 0.6808   0.8251  
+    ##  Residual             3.3338   1.8259  
+    ## Number of obs: 632, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                        Estimate Std. Error         df t value Pr(>|t|)    
+    ## (Intercept)           6.288e+00  3.252e-01  5.760e+01  19.337  < 2e-16 ***
+    ## culpabilityGuilty     5.634e-02  3.757e-01  2.986e+01   0.150    0.882    
+    ## confession_number     1.677e+00  2.437e-01  6.319e+02   6.882 1.43e-11 ***
+    ## confession_number_sq -4.597e-01  7.837e-02  6.314e+02  -5.866 7.22e-09 ***
+    ## length                5.353e-04  1.919e-03  3.339e+02   0.279    0.780    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) clpblG cnfss_ cnfs__
+    ## clpbltyGlty -0.381                     
+    ## cnfssn_nmbr -0.322  0.011              
+    ## cnfssn_nmb_  0.241 -0.007 -0.959       
+    ## length      -0.486 -0.301  0.002 -0.003
+
+### Remorse
+
+``` r
+lrt_remorse_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_remorse_1: Remorse ~ culpability + confession_number + (1 | video)
+    ## model_remorse_wc: Remorse ~ culpability + confession_number + length + (1 | video)
+    ##                  npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_remorse_1     5 2912.9 2935.2 -1451.5   2902.9                     
+    ## model_remorse_wc    6 2914.9 2941.7 -1451.5   2902.9 0.0163  1     0.8983
+
+``` r
+summary(model_remorse_wc)
+```
+
+    ## Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's
+    ##   method [lmerModLmerTest]
+    ## Formula: Remorse ~ culpability + confession_number + length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##   2914.9   2941.6  -1451.5   2902.9      630 
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -1.9930 -0.7453 -0.0616  0.7207  3.2892 
+    ## 
+    ## Random effects:
+    ##  Groups   Name        Variance Std.Dev.
+    ##  video    (Intercept) 1.883    1.372   
+    ##  Residual             5.128    2.264   
+    ## Number of obs: 636, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                     Estimate Std. Error         df t value Pr(>|t|)    
+    ## (Intercept)         3.311118   0.471071  42.200047   7.029 1.29e-08 ***
+    ## culpabilityGuilty   0.170367   0.590391  27.672760   0.289    0.775    
+    ## confession_number   0.567952   0.086594 628.408099   6.559 1.13e-10 ***
+    ## length             -0.000319   0.002495 473.082703  -0.128    0.898    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) clpblG cnfss_
+    ## clpbltyGlty -0.477              
+    ## cnfssn_nmbr -0.278  0.012       
+    ## length      -0.436 -0.252 -0.004
+
+### Detailed
+
+``` r
+lrt_detail_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_detail_2: Detailed ~ culpability + confession_number + confession_number_sq + (1 | video)
+    ## model_detail_wc: Detailed ~ culpability + confession_number + confession_number_sq + length + (1 | video)
+    ##                 npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_detail_2     6 2747.3 2774.0 -1367.6   2735.3                     
+    ## model_detail_wc    7 2748.3 2779.5 -1367.2   2734.3 0.9435  1     0.3314
+
+``` r
+summary(model_detail_wc)
+```
+
+    ## Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's
+    ##   method [lmerModLmerTest]
+    ## Formula: Detailed ~ culpability + confession_number + confession_number_sq +  
+    ##     length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##   2748.3   2779.5  -1367.2   2734.3      629 
+    ## 
+    ## Scaled residuals: 
+    ##     Min      1Q  Median      3Q     Max 
+    ## -2.8571 -0.7208  0.1400  0.7378  1.9357 
+    ## 
+    ## Random effects:
+    ##  Groups   Name        Variance Std.Dev.
+    ##  video    (Intercept) 0.5052   0.7108  
+    ##  Residual             4.0795   2.0198  
+    ## Number of obs: 636, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                        Estimate Std. Error         df t value Pr(>|t|)    
+    ## (Intercept)            5.862953   0.316768  56.932132  18.509  < 2e-16 ***
+    ## culpabilityGuilty      0.426813   0.345856  25.964129   1.234 0.228229    
+    ## confession_number      1.299937   0.266853 632.189244   4.871  1.4e-06 ***
+    ## confession_number_sq  -0.286928   0.085865 634.149737  -3.342 0.000882 ***
+    ## length                 0.002009   0.002014 210.588295   0.998 0.319540    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) clpblG cnfss_ cnfs__
+    ## clpbltyGlty -0.311                     
+    ## cnfssn_nmbr -0.361  0.009              
+    ## cnfssn_nmb_  0.270 -0.005 -0.958       
+    ## length      -0.524 -0.335  0.005 -0.007
+
+### Rehearsal
+
+``` r
+lrt_rehearse_wc
+```
+
+    ## Data: study_2
+    ## Models:
+    ## model_rehearse_3: Rehearsed ~ culpability * confession_number + (1 | video)
+    ## model_rehearse_wc: Rehearsed ~ culpability * confession_number + length + (1 | video)
+    ##                   npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+    ## model_rehearse_3     6 2916.5 2943.2 -1452.3   2904.5                     
+    ## model_rehearse_wc    7 2917.4 2948.6 -1451.7   2903.4 1.0769  1     0.2994
+
+``` r
+summary(model_rehearse_wc)
+```
+
+    ## Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's
+    ##   method [lmerModLmerTest]
+    ## Formula: Rehearsed ~ culpability * confession_number + length + (1 | video)
+    ##    Data: study_2
+    ## 
+    ##      AIC      BIC   logLik deviance df.resid 
+    ##   2917.4   2948.6  -1451.7   2903.4      625 
+    ## 
+    ## Scaled residuals: 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -2.39870 -0.75561  0.02639  0.69625  2.12189 
+    ## 
+    ## Random effects:
+    ##  Groups   Name        Variance Std.Dev.
+    ##  video    (Intercept) 1.683    1.297   
+    ##  Residual             5.308    2.304   
+    ## Number of obs: 632, groups:  video, 26
+    ## 
+    ## Fixed effects:
+    ##                                       Estimate Std. Error         df t value
+    ## (Intercept)                           5.424343   0.478814  46.915298  11.329
+    ## culpabilityGuilty                     0.664175   0.622967  35.935201   1.066
+    ## confession_number                     0.197057   0.127938 630.777311   1.540
+    ## length                                0.002711   0.002514 417.484462   1.078
+    ## culpabilityGuilty:confession_number  -0.382991   0.176694 625.671197  -2.168
+    ##                                     Pr(>|t|)    
+    ## (Intercept)                         5.04e-15 ***
+    ## culpabilityGuilty                     0.2935    
+    ## confession_number                     0.1240    
+    ## length                                0.2815    
+    ## culpabilityGuilty:confession_number   0.0306 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Correlation of Fixed Effects:
+    ##             (Intr) clpblG cnfss_ length
+    ## clpbltyGlty -0.521                     
+    ## cnfssn_nmbr -0.410  0.314              
+    ## length      -0.434 -0.237  0.002       
+    ## clpbltyGl:_  0.299 -0.421 -0.724 -0.007

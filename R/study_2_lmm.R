@@ -341,3 +341,41 @@ rating_table$SD <- round(rating_table$SD, 2)
 colnames(rating_table) <- c("Rating", "Actual Guilt", "Rehearsal Level", "Mean", "SD")
 
 write.csv(rating_table, "./data/rehearsal_rating-table.csv", row.names = FALSE)
+
+# Length as a covariate --------------------------------------------------------
+
+# Guilt
+
+model_guilt_wc <- glmer(guilt ~ culpability + confession_number + confession_number_sq + length + (1|video), data = study_2, family = binomial(link = "logit"))
+
+lrt_guilt_wc <- anova(model_guilt_2, model_guilt_wc)
+
+# Confidence
+
+model_confidence_wc <- lmer(Confidence ~ guilt + culpability + confession_number + confession_number_sq + length + (1|video), data = study_2, REML = FALSE)
+
+lrt_confidence_wc <- anova(model_confidence_2, model_confidence_wc)
+
+# Knowledgeable
+
+model_know_wc <- lmer(Knowledgeable ~ culpability + confession_number + confession_number_sq + length + (1|video), data = study_2, REML = FALSE)
+
+lrt_know_wc <- anova(model_know_2, model_know_wc)
+
+# Remorse
+
+model_remorse_wc <- lmer(Remorse ~ culpability + confession_number + length + (1|video), data = study_2, REML = FALSE)
+
+lrt_remorse_wc <- anova(model_remorse_1, model_remorse_wc)
+
+# Detailed
+
+model_detail_wc <- lmer(Detailed ~ culpability + confession_number + confession_number_sq + length + (1|video), data = study_2, REML = FALSE)
+
+lrt_detail_wc <- anova(model_detail_2, model_detail_wc)
+
+# Rehearsed
+
+model_rehearse_wc <- lmer(Rehearsed ~ culpability * confession_number + length + (1|video), data = study_2, REML = FALSE)
+
+lrt_rehearse_wc <- anova(model_rehearse_3, model_rehearse_wc)

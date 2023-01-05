@@ -1,6 +1,6 @@
 # Practice Makes Perfect: Effects of Mere Rehearsal on Lay Judgments of Confessions
 
 This repository contains analysis code for a study on the rehearsal of
-confessions. the supplemental materials for this project are hosted in this
-github repository and on the open science framework (https://osf.io/8akxz/).
+confessions. The supplemental materials for this project are hosted in this
+GitHub repository and on the Open Science Framework (https://osf.io/8akxz/).
 

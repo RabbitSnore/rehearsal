@@ -324,6 +324,10 @@ save_plot("./figures/rehearsal_guilt-figure.png", guilt_figure, base_height = 5)
 save_plot("./figures/rehearsal_confidence-figure.png", confidence_figure, base_height = 5)
 save_plot("./figures/rehearsal_perceptual-figure.png", perceptual_figure_alt, base_height = 6)
 
+save_plot("./figures/rehearsal_guilt-figure.tiff", guilt_figure, base_height = 5)
+save_plot("./figures/rehearsal_confidence-figure.tiff", confidence_figure, base_height = 5)
+save_plot("./figures/rehearsal_perceptual-figure.tiff", perceptual_figure_alt, base_height = 6)
+
 # Table of descriptives --------------------------------------------------------
 
 rating_table <- perceptual %>% 

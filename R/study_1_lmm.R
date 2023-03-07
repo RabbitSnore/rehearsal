@@ -134,3 +134,6 @@ word_trajectories <-
 
 save_plot("./figures/rehearsal_word-figure.png", word_figure, base_height = 5)
 save_plot("./figures/rehearsal_word-trajectory-figure.png", word_trajectories, base_height = 5)
+
+save_plot("./figures/rehearsal_word-figure.tiff", word_figure, base_height = 5)
+save_plot("./figures/rehearsal_word-trajectory-figure.tiff", word_trajectories, base_height = 5)
